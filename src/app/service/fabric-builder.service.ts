@@ -30,16 +30,17 @@ export class FabricBuilderService {
 
     markList.forEach(mark => {
       verticalScaleGroup.add(
-        new fabric.Line([0, 0, 10, 0], {
-          left: -5,
+        new fabric.Line([0, 0, mark.size, 0], {
+          left: mark.left,
           top: mark.top,
-          stroke: 'white',
+          stroke: mark.color,
+          strokeWidth: mark.thickness
         }),
         new fabric.Text(mark.label, {
-          left: -20,
-          top: mark.top - 10,
-          stroke: 'white',
-          fontSize: 15,
+          left: -18,
+          top: mark.top - 7,
+          stroke: mark.color,
+          fontSize: 12,
         }),
       )
     })
@@ -51,7 +52,7 @@ export class FabricBuilderService {
     let pointer = new fabric.Triangle({
       width: size,
       height: size,
-      fill: 'black',
+      fill: 'green',
       left: 0,
       top: position + size/2,
       angle: -90,

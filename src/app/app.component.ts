@@ -12,7 +12,9 @@ import {VerticalSpeedIndicatorService} from "./service/instruments/vertical-spee
 export class AppComponent implements OnInit {
 
   canvas: fabric.Canvas;
-  group: fabric.Group;
+
+  canvasWidth = 800;
+  canvasHeight = 500;
 
   constructor(private readonly service: FabricBuilderService,
               private readonly dataService: DataService,
@@ -21,16 +23,22 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.canvas = new fabric.Canvas('PFD_canvas');
-    this.group = new fabric.Group( [new fabric.Rect({
-      fill: 'green',
-      width: 500,
-      height: 500,
-      borderColor: 'black',
-      borderScaleFactor: 2,
-    })])
-    this.canvas.add(this.group);
+    this.buildBackground()
     this.buildVerticalIndicatorSpeed();
+    this.canvas.renderAll()
+  }
 
+  buildBackground() {
+    const strokeWidth = 5;
+    let background = new fabric.Group( [new fabric.Rect({
+      fill: '#8FAABA',
+      width: this.canvasWidth - 2*strokeWidth,
+      height: this.canvasHeight - 2*strokeWidth,
+      stroke: "black",
+      strokeWidth: strokeWidth,
+      opacity: 0.5,
+    })])
+    this.canvas.add(background);
   }
 
   buildVerticalIndicatorSpeed() {
