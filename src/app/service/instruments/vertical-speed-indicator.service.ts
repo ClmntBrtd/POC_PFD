@@ -20,12 +20,16 @@ export class VerticalSpeedIndicatorService {
   pointerSize = 14;
   markList = [
     {top:-180, label:'6'},
-    {top:-120, label:'2'},
-    {top:-60, label:'1'},
+    {top:-135, label:'2'},
+    {top:-112.5, label:''},
+    {top:-90, label:'1'},
+    {top:-45, label:''},
     {top:0, label:'0'},
-    {top:60, label:'-1'},
-    {top:120, label:'-2'},
-    {top:180, label:'-6'},
+    {top:45, label:''},
+    {top:90, label:'1'},
+    {top:112.5, label:''},
+    {top:135, label:'2'},
+    {top:180, label:'6'},
   ];
 
   constructor(private readonly service: FabricBuilderService,
@@ -74,11 +78,18 @@ export class VerticalSpeedIndicatorService {
 
   calculatePointerPositionFromVSpeed(vSpeed: number): number {
     if (vSpeed > 2000) {
-      return -1* (((vSpeed-2000) * (60/4000)) + 120)
-    } else if (vSpeed < -2000 ) {
-      return -1 * (((vSpeed + 2000) * (60/4000)) - 120)
+      // pixel size = 45
+      return -1 * (((vSpeed - 2000) * (45 / 4000)) + 135)
+    } else if (vSpeed > 1000 && vSpeed <= 2000) {
+      // pixel size = 45
+      return -1 * (((vSpeed - 1000) * (45 / 1000)) + 90)
+    } else if (vSpeed < -1000 && vSpeed >= -2000) {
+      return -1 * (((vSpeed + 1000) * (45 / 1000)) - 90)
+    } else if (vSpeed < -2000) {
+      return -1 * (((vSpeed + 2000) * (45 / 4000)) - 135)
     } else {
-      return -vSpeed * (60/1000)
+      // pixel size = 90
+      return -vSpeed * (90 / 1000)
     }
   }
 }
