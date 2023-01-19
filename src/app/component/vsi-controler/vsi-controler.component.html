@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-title>
+    Vertical Speed Indicator
+  </mat-card-title>
+  <mat-card-content>
+    <mat-slider [min]="-6" [max]="6" [step]="0.1">
+      <input matSliderThumb [value]="0" (valueChange)="speedChange($event)">
+    </mat-slider>
+    <div class="info-container">
+      <label class="info-label">Vertical Speed:</label>
+      <label class="info-value">{{value}} p/min</label>
+    </div>
+  </mat-card-content>
+</mat-card>
+

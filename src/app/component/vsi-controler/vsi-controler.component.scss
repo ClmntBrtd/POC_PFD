@@ -1,0 +1,30 @@
+:host {
+  padding: 20px;
+}
+
+mat-card-title {
+  padding: 0px 20px;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-slider {
+  flex-grow: 1;
+}
+
+.info-container {
+  display: flex;
+  justify-content: space-between;
+
+  .info-value {
+    font-weight: bold;
+  }
+
+  .info-label {
+    align-self: center;
+    font-size: smaller;
+  }
+}
