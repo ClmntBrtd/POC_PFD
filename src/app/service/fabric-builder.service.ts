@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
 import { fabric } from 'fabric';
+import {DialZone} from "../model/dial-zone.model";
+import {Polygon} from "fabric/fabric-impl";
+
+export interface ZoneData {
+  y1: number,
+  y2: number,
+  color: string,
+  opacity?: number,
+}
 
 @Injectable({
   providedIn: 'root'
@@ -7,15 +16,6 @@ import { fabric } from 'fabric';
 export class FabricBuilderService {
 
   constructor() { }
-
-  createInstrumentBackGround(width: number, height: number, fill: string): fabric.Rect {
-    return new fabric.Rect({
-        fill: fill,
-        width: width,
-        height: height,
-        opacity: 0.7,
-      });
-  }
 
   createVerticalScale(size: number, markList: any[]) {
     let verticalScaleGroup = new fabric.Group()
@@ -48,8 +48,14 @@ export class FabricBuilderService {
     return verticalScaleGroup;
   }
 
-  createPointer(size: number, position: number = 0) {
-    let pointer = new fabric.Triangle({
+  createSpeedZones(zoneCoord: ZoneData[]): fabric.Group {
+    let speedZoneGroup = new fabric.Group();
+    zoneCoord.forEach(zc => speedZoneGroup.add(new DialZone(new fabric.Point(0, zc.y1), new fabric.Point(0, zc.y2), 15, 130, zc.color)));
+    return speedZoneGroup;
+  }
+
+  createPointer(size: number, position: number = 0): fabric.Triangle {
+    return new fabric.Triangle({
       width: size,
       height: size,
       fill: 'green',
@@ -57,6 +63,6 @@ export class FabricBuilderService {
       top: position + size/2,
       angle: -90,
     })
-    return pointer;
   }
 }
+

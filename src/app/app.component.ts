@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
   canvasWidth = 800;
   canvasHeight = 500;
 
+  testLine: fabric.Line;
+
   constructor(private readonly service: FabricBuilderService,
               private readonly dataService: DataService,
               private readonly verticalSpeedIndicator: VerticalSpeedIndicatorService) {
@@ -25,7 +27,10 @@ export class AppComponent implements OnInit {
     this.canvas = new fabric.Canvas('PFD_canvas');
     this.buildBackground()
     this.buildVerticalIndicatorSpeed();
+    this.test();
     this.canvas.renderAll()
+
+    this.dataService.getVerticalSpeed$().subscribe(v => this.testUpdate(v))
   }
 
   buildBackground() {
@@ -44,6 +49,29 @@ export class AppComponent implements OnInit {
   buildVerticalIndicatorSpeed() {
     this.verticalSpeedIndicator.setCanvas(this.canvas);
     this.canvas.add(this.verticalSpeedIndicator.build());
+  }
+
+
+
+
+  test() {
+    // this.testLine = new fabric.Line([0, 0, 150, 150]);
+    // this.testLine.stroke = 'red';
+    // this.canvas.add(this.testLine, new fabric.Line([0, 0, 150, 150], {stroke: 'blue'}))
+    //
+    // const poly = new fabric.Polygon([{x:100, y:200}, {x:100, y:300}, {x:200, y:200}, {x:200, y:100}])
+    // this.canvas.add(poly)
+  }
+
+  testUpdate(v : number) {
+    // let toto = this.canvas.getObjects('line')
+    //
+    // this.testLine.x1 = v / 20
+    // this.testLine.x2 = v / 10;
+    // this.testLine.width = this.testLine.x2 - this.testLine.x1
+    // this.testLine.dirty = true;
+    // this.testLine.setCoords()
+    // this.canvas.renderAll()
   }
 
 
